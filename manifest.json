@@ -1,6 +1,6 @@
 {
-    "name": "JWT",
-    "version": "1.1",
+    "name": "JWT Ext",
+    "version": "1.2.1",
     "description": "Chrome extension to display JWT used in Authorization: Bearer JWT HTTP headers.",
     "permissions": [
         "tabs",
@@ -16,7 +16,7 @@
         ]
     },
     "page_action": {
-        "default_title": "JWT",
+        "default_title": "JWT Ext",
         "default_popup": "jwtpopup.html",
         "show_matches": [
             "http://*:*/*",

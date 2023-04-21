@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +14,7 @@
             padding: 0px;
             overflow: hidden;
         }
+
         body {
             top: 0;
             left: 0;
@@ -22,22 +24,26 @@
             background-color: #EFEFEF;
             overflow: hidden;
         }
+
         .popup {
             margin: 10px;
             width: 97.5%;
             max-width: 97.5%;
         }
+
         h3 {
             border-radius: 2px;
             padding: 10px;
             background-color: #333;
             color: #EFEFEF;
         }
+
         pre {
             border: 1px dotted #333;
             padding: 5px;
             background-color: white;
         }
+
         .wrapping {
             border: 1px dotted #333;
             padding: 5px;
@@ -45,26 +51,49 @@
             font-family: monospace;
             overflow-wrap: break-word;
         }
+
+        button,
+        #copy_token,
+        #copy_decoded_token {
+            cursor: pointer;
+        }
+
+        .buttonContainer {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        #btnCopyToken {
+            margin-left: auto;
+        }
     </style>
 </head>
+
 <body>
     <div class="popup">
         <div id="token_absent">
             <h4>Token not available.</h4>
         </div>
         <div id="token_present" style="display: none;">
-                <h3><img src="jwt.png" width="16" style="padding-right: 1em; vertical-align: middle;">JWT</h3>
-                <h4>Decoded Token</h4>
-                <h5>Header</h5>
-                <pre id="decoded_header"></pre>
-                <h5>Payload <span id="copy_decoded_token" style="padding-left: 1em;" title="Copy Payload to Clipboard">&#x1f4cb;</span></h5>
-                <pre id="decoded_token"></pre>
-                <h4>JWT<span id="copy_token" style="padding-left: 1em;" title="Copy Token to Clipboard">&#x1f4cb;</span></h4>
-                <p id="token" class="wrapping"></p>
-                <h4>Request</h4>
-                <p id="request" class="wrapping"></p>
+            <div class="buttonContainer">
+                <button id="btnCopyToken">&#x1f4cb; Copy token</button>
             </div>
+            <h3><img src="jwt.png" width="16" style="padding-right: 1em; vertical-align: middle;">JWT</h3>
+            <h4>Decoded Token</h4>
+            <h5>Payload <button id="copy_decoded_token" style="margin-left: 1em;"
+                    title="Copy Payload to Clipboard">&#x1f4cb; Copy decoded token</button></h5>
+            <pre id="decoded_token"></pre>
+            <h5>Header</h5>
+            <pre id="decoded_header"></pre>
+            <h4>JWT<button id="copy_token" style="margin-left: 1em;" title="Copy Token to Clipboard">&#x1f4cb;
+                    Copy token</span>
+            </h4>
+            <p id="token" class="wrapping"></p>
+            <h4>Request</h4>
+            <p id="request" class="wrapping"></p>
         </div>
+    </div>
     <script src="jwtpopup.js"></script>
 </body>
+
 </html>

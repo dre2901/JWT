@@ -1,17 +1,17 @@
-(function() {
+(function () {
 
     let token;
     let decodedHeader;
     let decodedToken;
 
-    function copyToClipboard (text) {
+    function copyToClipboard(text) {
         // Create new element
         var el = document.createElement('textarea');
         // Set value (string to be copied)
         el.value = text;
         // Set non-editable to avoid focus and move outside of view
         el.setAttribute('readonly', '');
-        el.style = {position: 'absolute', left: '-9999px'};
+        el.style = { position: 'absolute', left: '-9999px' };
         document.body.appendChild(el);
         // Select text inside element
         el.select();
@@ -21,11 +21,15 @@
         document.body.removeChild(el);
     }
 
-    document.querySelector('#copy_token').onclick = function() {
+    document.querySelector('#btnCopyToken').onclick = function () {
         copyToClipboard(token);
     };
 
-    document.querySelector('#copy_decoded_token').onclick = function() {
+    document.querySelector('#copy_token').onclick = function () {
+        copyToClipboard(token);
+    };
+
+    document.querySelector('#copy_decoded_token').onclick = function () {
         copyToClipboard(decoded_token);
     };
 
@@ -37,11 +41,11 @@
         return orderedJsonStringify(JSON.parse(window.atob(token.split('.')[index].replace('-', '+').replace('_', '/'))));
     };
 
-    function parseHeader (token) {
+    function parseHeader(token) {
         return parseTokenPart(token, 0);
     };
-    
-    function parsePayload (token) {
+
+    function parsePayload(token) {
         return parseTokenPart(token, 1);
     };
 
@@ -59,16 +63,16 @@
 
     chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
         if (tabs[0]) {
-            chrome.runtime.sendMessage(null, {requestsForTabId: tabs[0].id}, null, function(responseArray) {
+            chrome.runtime.sendMessage(null, { requestsForTabId: tabs[0].id }, null, function (responseArray) {
                 if (responseArray && responseArray.length > 0) {
                     let request = responseArray.pop();
-                    let authorizationHeader = request.requestHeaders.find(function(header) {
+                    let authorizationHeader = request.requestHeaders.find(function (header) {
                         return (header.name === 'Authorization') && (header.value.toLowerCase().startsWith('bearer ')) && (header.value.substring(7).split('.').length === 3);
                     });
                     if (authorizationHeader) {
                         showToken(authorizationHeader.value.substring(7), request.method + ' ' + request.url);
                     }
-                }    
+                }
             });
         }
     });
